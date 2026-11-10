@@ -1,0 +1,12 @@
+[General]
+Enabled = true
+SyncOnStartup = true
+UseRealDayNight = false
+DebugLogging = false
+
+[Location]
+Latitude = 49.44024161964049
+Longitude = 1.095072045140073
+
+[Network]
+RefreshIntervalMinutes = 15
