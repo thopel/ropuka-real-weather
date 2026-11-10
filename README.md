@@ -44,9 +44,10 @@ Both coordinates set to `0.0` disable network requests. Valid ranges are `[-90, 
 ## How it works
 
 - Open-Meteo is queried asynchronously every 15 minutes by default.
+- At startup, the mod immediately applies clear weather until the first Open-Meteo observation arrives. A real snow observation is then applied normally.
 - Only the configured coordinates are sent to Open-Meteo.
 - Network requests time out after 10 seconds.
-- A failed request leaves the current weather unchanged and retries at the next interval.
+- After startup, a failed request leaves the current weather unchanged and retries at the next interval.
 - The mod calls the game's public weather method and does not patch the game's assemblies or weather scheduler.
 
 | WMO code | Game effect |

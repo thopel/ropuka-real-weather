@@ -21,6 +21,7 @@ public sealed class WeatherController : MonoBehaviour
     private bool _warnedUnset;
     private bool _warnedDayNight;
     private bool _wasActive;
+    private bool _startupFallbackApplied;
     private bool _isShutdown;
     private float _nextUpdateAt;
 
@@ -49,6 +50,21 @@ public sealed class WeatherController : MonoBehaviour
         if (!_adapter.IsReady) return;
         _adapter.Activate();
         _wasActive = true;
+
+        if (!_startupFallbackApplied)
+        {
+            try
+            {
+                _adapter.Apply(GameWeather.Clear);
+                _startupFallbackApplied = true;
+                _log.LogInfo("No weather observation yet; applying clear weather until the first Open-Meteo response.");
+            }
+            catch (Exception ex)
+            {
+                _startupFallbackApplied = true;
+                _log.LogError($"Could not apply the startup clear-weather fallback: {ex}");
+            }
+        }
 
         if (_config.UseRealDayNight.Value && !_warnedDayNight)
         {
