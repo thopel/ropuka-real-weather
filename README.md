@@ -29,7 +29,7 @@ An unofficial BepInEx mod for **Ropuka's Idle Island** that periodically applies
    BepInEx/config/com.ropuka.realweather.cfg
    ```
 
-8. The default `Latitude` and `Longitude` are already set; change them if needed, save the file, and restart the game.
+8. New configuration files use the coordinates below by default. Existing configuration files keep their saved values, so update `Latitude` and `Longitude` if needed; save the file and restart the game.
 
 Example:
 
