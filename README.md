@@ -48,7 +48,8 @@ Both coordinates set to `0.0` disable network requests. Valid ranges are `[-90, 
 - Only the configured coordinates are sent to Open-Meteo.
 - Network requests time out after 10 seconds.
 - After startup, a failed request leaves the current weather unchanged and retries at the next interval.
-- The mod calls the game's public weather method and does not patch the game's assemblies or weather scheduler.
+- The latest reported WMO condition is the sole input used to select the game effect; temperature does not override it.
+- The mod calls the game's public weather method and does not patch the game's assemblies or weather scheduler. If the scheduler replaces the selected effect, the mod reapplies the latest synchronized condition.
 
 | WMO code | Game effect |
 |---|---|
@@ -56,7 +57,8 @@ Both coordinates set to `0.0` disable network requests. Valid ranges are `[-90, 
 | 2–3 | `WindA` (cloudy) |
 | 45, 48 | `WindA` (fog fallback) |
 | 51–57 | `RainB` (light rain) |
-| 61–67, 80–82 | `RainA` (heavy rain) |
+| 61, 63, 80 | `RainB` (light rain) |
+| 65–67, 81–82 | `RainA` (heavy rain) |
 | 71–77, 85–86 | `Snow` |
 | 95–99 | `RainA` (thunderstorm fallback) |
 | Other | `WindA` |

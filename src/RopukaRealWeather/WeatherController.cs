@@ -24,6 +24,7 @@ public sealed class WeatherController : MonoBehaviour
     private bool _startupFallbackApplied;
     private bool _isShutdown;
     private float _nextUpdateAt;
+    private GameWeather _desiredWeather = GameWeather.Clear;
 
     public void Initialize(ModConfig config, ManualLogSource log)
     {
@@ -65,6 +66,11 @@ public sealed class WeatherController : MonoBehaviour
                 _log.LogError($"Could not apply the startup clear-weather fallback: {ex}");
             }
         }
+
+        // The game's random-weather scheduler remains active and can replace the
+        // synchronized effect between network refreshes. Re-assert the desired
+        // weather whenever that happens.
+        _adapter.Apply(_desiredWeather);
 
         if (_config.UseRealDayNight.Value && !_warnedDayNight)
         {
@@ -133,6 +139,7 @@ public sealed class WeatherController : MonoBehaviour
         if (error != null) _log.LogWarning($"Open-Meteo synchronization failed; retrying at the next interval: {error.Message}");
         if (observation == null || !_wasActive) return;
         var mapped = WeatherMapper.FromWmoCode(observation.WeatherCode);
+        _desiredWeather = mapped;
         try
         {
             var changed = _adapter.Apply(mapped);

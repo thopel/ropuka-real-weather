@@ -21,9 +21,11 @@ public static class WeatherMapper
         if (code == 2 || code == 3) return GameWeather.Cloudy;
         if (code == 45 || code == 48) return GameWeather.Fog;
         if (code >= 51 && code <= 57) return GameWeather.LightRain;
-        if (code >= 61 && code <= 67) return GameWeather.HeavyRain;
+        if (code == 61 || code == 63) return GameWeather.LightRain;
+        if (code >= 65 && code <= 67) return GameWeather.HeavyRain;
         if (code >= 71 && code <= 77) return GameWeather.Snow;
-        if (code >= 80 && code <= 82) return GameWeather.HeavyRain;
+        if (code == 80) return GameWeather.LightRain;
+        if (code >= 81 && code <= 82) return GameWeather.HeavyRain;
         if (code >= 85 && code <= 86) return GameWeather.Snow;
         if (code >= 95 && code <= 99) return GameWeather.Thunderstorm;
         return GameWeather.Cloudy;

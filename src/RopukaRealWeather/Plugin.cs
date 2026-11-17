@@ -7,7 +7,7 @@ public sealed class Plugin : BaseUnityPlugin
 {
     public const string PluginGuid = "com.ropuka.realweather";
     public const string PluginName = "Ropuka Real Weather";
-    public const string PluginVersion = "2.0.1";
+    public const string PluginVersion = "2.0.3";
 
     private WeatherController? _controller;
 
